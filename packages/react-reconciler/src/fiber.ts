@@ -23,6 +23,7 @@ export class FiberNode {
 	// 当前是current,alternate 指向workInProgres。当前是workInProgres，alternate是current
 	alternate: FiberNode | null;
 	flags: Flags;
+	subtreeFlags: Flags;
 	updateQueue: unknown;
 	constructor(
 		tag: WorkTag,
@@ -59,6 +60,7 @@ export class FiberNode {
 		this.alternate = null;
 		// 副作用
 		this.flags = NoFlags;
+		this.subtreeFlags = NoFlags;
 	}
 }
 
@@ -98,6 +100,7 @@ export const createWorkInProgress = (
 		wip.pendingProps = pendingProps;
 		// 清除上次更新遗留的副作用
 		wip.flags = NoFlags;
+		wip.subtreeFlags = NoFlags;
 	}
 	// 不懂 UpdateQueue 的结构是为了current 和wip 共用一个updateQueue
 	wip.type = current.type;
